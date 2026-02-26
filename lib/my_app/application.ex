@@ -38,12 +38,25 @@ defmodule MyApp.EventHandler do
   end
 end
 
+defmodule MyApp.EventStore do
+  use EventStore,
+    otp_app: :my_app,
+    serializer: Commanded.Serialization.JsonSerializer,
+    username: "postgres",
+    password: "postgres",
+    database: "my_app_eventstore",
+    hostname: "localhost",
+    port: 5433
+end
+
 defmodule MyApp.CommandedApplication do
   use Commanded.Application,
     otp_app: :my_app,
     event_store: [
-      adapter: Commanded.EventStore.Adapters.InMemory,
-      serializer: Commanded.Serialization.JsonSerializer
+      # Uncomment this for in-memory adapter
+      # adapter: Commanded.EventStore.Adapters.InMemory,
+      adapter: Commanded.EventStore.Adapters.EventStore,
+      event_store: MyApp.EventStore
     ],
     pubsub: :local,
     registry: :local

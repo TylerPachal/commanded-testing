@@ -22,6 +22,7 @@ defmodule MyApp.MixProject do
     [
       {:commanded, path: "/Users/tyler/dev.noindex/personal/commanded", override: true},
       {:commanded_eventstore_adapter, "~> 1.4"},
+      {:eventstore, path: "/Users/tyler/dev.noindex/personal/eventstore", override: true},
       {:jason, "~> 1.4"}
     ]
   end
