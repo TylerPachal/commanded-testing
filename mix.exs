@@ -7,6 +7,7 @@ defmodule MyApp.MixProject do
       version: "0.1.0",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -15,6 +16,12 @@ defmodule MyApp.MixProject do
     [
       extra_applications: [:logger],
       mod: {MyApp.Application, []}
+    ]
+  end
+
+  def aliases do
+    [
+      reset: ["event_store.drop", "event_store.create", "event_store.init"]
     ]
   end
 
